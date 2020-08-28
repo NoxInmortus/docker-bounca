@@ -3,8 +3,9 @@ set -euo pipefail
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 INI_FILE=${DOCROOT}/etc/bounca/main.ini
 
-# uwsgi
-/etc/init.d/uwsgi restart
+# Apply uwsgi configuration
+# uwsgi --ini /etc/uwsgi/apps-available/bounca.ini # debug
+/etc/init.d/uwsgi restart # FAILING!!
 
 ## Setup main.ini
 if [[ ! -f ${INI_FILE} ]]; then

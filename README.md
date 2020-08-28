@@ -26,3 +26,4 @@ docker run --name bounca --network=net-bounca -e DB_PWD=bounca -d noxinmortus/do
 - https://github.com/repleo/docker-bounca
 - https://github.com/repleo/docker-compose-bounca
 - https://www.bounca.org/getting_started.html#deploy-docker
+- https://github.com/repleo/ansible-role-bounca

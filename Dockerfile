@@ -18,7 +18,7 @@ ENV BOUNCA_SRC=bounca \
 
 RUN apt-get update \
   && apt-get install --no-install-recommends --no-install-suggests -qy nginx ca-certificates python3 python3-dev python3-setuptools python3-pip \
-    git gcc libpq-dev uwsgi uwsgi-plugin-python \
+    git gcc libpq-dev uwsgi uwsgi-plugin-python3 \
   && git clone --single-branch https://github.com/repleo/bounca.git ${DOCROOT} \
   && mkdir -pv ${DOCROOT}/media ${DOCROOT}/static ${DOCROOT}/logs /etc/bounca /var/www/bounca/bounca/static /var/www/default \
   && pip3 install wheel \
@@ -31,6 +31,7 @@ RUN cp -v /var/www/default/main.ini ${DOCROOT}/etc/bounca/main.ini \
   && ln -s /etc/uwsgi/apps-available/bounca.ini /etc/uwsgi/apps-enabled/bounca.ini \
   && cp -v /var/www/default/vhost.conf /etc/nginx/sites-enabled/default \
   && chmod +x /var/www/default/entrypoint.sh \
+  && chown -R www-data:www-data /var/www/bounca \
   && touch ${DOCROOT}/init-setup
 
 VOLUME /var/www/bounca
