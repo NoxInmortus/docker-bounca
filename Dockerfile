@@ -32,7 +32,11 @@ RUN cp -v /var/www/default/main.ini ${DOCROOT}/etc/bounca/main.ini \
   && cp -v /var/www/default/vhost.conf /etc/nginx/sites-enabled/default \
   && chmod +x /var/www/default/entrypoint.sh \
   && chown -R www-data:www-data /var/www/bounca \
-  && touch ${DOCROOT}/init-setup
+  && touch ${DOCROOT}/init-setup \
+  && apt-get remove --purge -qy git ca-certificates && apt-get autoremove -qy \
+  && apt-get clean \
+  && rm -rfv /tmp/* /var/tmp/* /var/lib/apt/lists/* \
+  ;
 
 VOLUME /var/www/bounca
 

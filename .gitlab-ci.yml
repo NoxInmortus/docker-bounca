@@ -2,14 +2,16 @@ stages:
   - docker_build_validate
   - docker_build_push
 
+before_script:
+  - DOCKERHUB='noxinmortus'
+
 docker_build_validate:
   stage: docker_build_validate
   tags:
     - docker
   script:
-    - git clone ${CI_REPOSITORY_URL}
     - export DOCKER_CLI_EXPERIMENTAL=enabled
-    - docker buildx build -t ${CI_REGISTRY}/sysadmins/docker/docker-bounca --platform=linux/arm,linux/arm64,linux/amd64 .
+    - docker buildx build -t ${DOCKERHUB}/${CI_PROJECT_NAME} --platform=linux/arm,linux/arm64,linux/amd64 .
   only:
     - merge_requests
 
@@ -18,10 +20,11 @@ docker_build_push:
   tags:
     - docker
   script:
-    - git clone ${CI_REPOSITORY_URL}
+    - VERSION=$(grep 'Version' README.md | awk -F ' ' '{ print $NF }')
     - export DOCKER_CLI_EXPERIMENTAL=enabled
-    - echo ${CI_REGISTRY_PASSWORD} | docker login ${CI_REGISTRY} -u ${CI_REGISTRY_USER} --password-stdin
-    - docker buildx build -t ${CI_REGISTRY}/sysadmins/docker/docker-bounca:latest --platform=linux/arm,linux/arm64,linux/amd64 . --push
+    - echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USER} --password-stdin
+    - docker buildx build -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/arm,linux/arm64,linux/amd64 . --push
+    - docker pushrm ${DOCKERHUB}/${CI_PROJECT_NAME}
   only:
     refs:
       - master
