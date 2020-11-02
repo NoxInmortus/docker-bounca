@@ -4,6 +4,12 @@ This container is used to build BounCA.
 
 Version alpha
 
+## Official NoxInmortus repositories
+
+Find more at :
+- https://git.tools01.imperium-gaming.fr/
+- https://github.com/NoxInmortus?tab=repositories
+
 ## Available Architectures
 - amd64
 - arm64 (aarch64)
@@ -27,3 +33,6 @@ docker run --name bounca --network=net-bounca -e DB_PWD=bounca -d noxinmortus/do
 - https://github.com/repleo/docker-compose-bounca
 - https://www.bounca.org/getting_started.html#deploy-docker
 - https://github.com/repleo/ansible-role-bounca
+
+## License
+MIT view [LICENSE](LICENSE)
