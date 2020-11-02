@@ -21,7 +21,7 @@ RUN apt-get update \
     git gcc libpq-dev libffi-dev uwsgi uwsgi-plugin-python3 \
   && git clone --single-branch https://github.com/repleo/bounca.git ${DOCROOT} \
   && mkdir -pv ${DOCROOT}/media ${DOCROOT}/static ${DOCROOT}/logs /etc/bounca /var/www/bounca/bounca/static /var/www/default \
-  && pip3 install wheel \
+  && pip3 install wheel cryptography \
   && pip3 install -r ${DOCROOT}/requirements.txt
 
 COPY entrypoint.sh main.ini uwsgi.ini vhost.conf /var/www/default/
