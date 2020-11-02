@@ -17,7 +17,7 @@ ENV BOUNCA_SRC=bounca \
     FROM_MAIL=no-reply@localhost
 
 RUN apt-get update \
-  && apt-get install --no-install-recommends --no-install-suggests -qy nginx ca-certificates python3 python3-dev python3-setuptools python3-pip \
+  && apt-get install --no-install-recommends --no-install-suggests -qy nginx ca-certificates build-essential python3 python3-dev python3-setuptools python3-pip \
     git gcc libpq-dev libffi-dev uwsgi uwsgi-plugin-python3 \
   && git clone --single-branch https://github.com/repleo/bounca.git ${DOCROOT} \
   && mkdir -pv ${DOCROOT}/media ${DOCROOT}/static ${DOCROOT}/logs /etc/bounca /var/www/bounca/bounca/static /var/www/default \
@@ -33,7 +33,7 @@ RUN cp -v /var/www/default/main.ini ${DOCROOT}/etc/bounca/main.ini \
   && chmod +x /var/www/default/entrypoint.sh \
   && chown -R www-data:www-data /var/www/bounca \
   && touch ${DOCROOT}/init-setup \
-  && apt-get remove --purge -qy git ca-certificates && apt-get autoremove -qy \
+  && apt-get remove --purge -qy git ca-certificates build-essential && apt-get autoremove -qy \
   && apt-get clean \
   && rm -rfv /tmp/* /var/tmp/* /var/lib/apt/lists/* \
   ;
